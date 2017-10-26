@@ -32,7 +32,6 @@ Xt
 plot(St, main = "Sources")
 plot(Xt, main = "Mixtures")
 
-setWavPlayer("/Applications/'QuickTime Player.app'/Contents/MacOS/'i'")
 setWavPlayer("afplay")
 
 x1 <- normalize(Wave(left = X[, 1], samp.rate = 44100, bit = 16),
