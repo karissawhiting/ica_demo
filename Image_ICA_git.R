@@ -4,6 +4,7 @@
 source("https://bioconductor.org/biocLite.R")
 biocLite("EBImage")
 library(EBImage)
+require(fastICA)
 
 rm(list=ls())
 
@@ -97,10 +98,6 @@ ICA3=fastICA(S3, 3,  alg.typ = "parallel", fun = "logcosh", alpha = 1,
 img1_ica3=as.Image(matrix(ICA3$S[,1], nrow=600)) # Reconstruct image
 img2_ica3=as.Image(matrix(ICA3$S[,2], nrow=600))
 img3_ica3=as.Image(matrix(ICA3$S[,3], nrow=600))
-
-
-par(mfrow=c(1,1))
-par(mar=c(1,1,1,1))
 
 ica3_img=combine(img1, img2, img3,
                 img1_ica3, img2_ica3, img3_ica3,
