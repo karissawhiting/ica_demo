@@ -31,8 +31,8 @@ S1 <- cbind(img1_vec, img2_vec)
 ICA1=fastICA(S1, 2,  alg.typ = "parallel", fun = "logcosh", alpha = 1,
                  method = "C", row.norm = FALSE, maxit = 200,
                  tol = 0.0001, verbose = TRUE)
-img1_ica=as.Image(matrix(ICA1.lc$S[,1], nrow=600)) # Reconstruct image
-img2_ica=as.Image(matrix(ICA1.lc$S[,2], nrow=600))
+img1_ica=as.Image(matrix(ICA1$S[,1], nrow=600)) # Reconstruct image
+img2_ica=as.Image(matrix(ICA1$S[,2], nrow=600))
 
 ica1_img=combine(img1, img1_ica, test2,
                  img2,img2_ica, test1) # Combine images
