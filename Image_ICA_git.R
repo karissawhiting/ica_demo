@@ -4,7 +4,8 @@
 source("https://bioconductor.org/biocLite.R")
 biocLite("EBImage")
 library(EBImage)
-require(fastICA)
+install.packages("fastICA")
+library(fastICA)
 
 rm(list=ls())
 
@@ -19,7 +20,7 @@ display(test1); display(test2); display(test3); display(test4) # Take a look at 
 ### A linear transformation of test1 and test2
 img1=0.4*test1+0.6*test2
 img2=0.7*test1+0.2*test2
-#display(img1); display(img2)
+display(img1); display(img2)
 
 ## Convert the two transformations to vectors
 img1_vec=as.vector(img1) 
