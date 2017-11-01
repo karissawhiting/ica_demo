@@ -8,6 +8,7 @@ install.packages("fastICA")
 library(fastICA)
 
 rm(list=ls())
+#setwd("~/Documents/ica_demo/")
 
 ### Import 4 images
 test1=readImage("./Test1_g.jpg") 
@@ -30,6 +31,7 @@ img2_vec=as.vector(img2)
 S1 <- cbind(img1_vec, img2_vec)
 
 # FastICA
+set.seed(1)
 ICA1=fastICA(S1, 2,  alg.typ = "parallel", fun = "logcosh", alpha = 1,
                  method = "C", row.norm = FALSE, maxit = 200,
                  tol = 0.0001, verbose = TRUE)
@@ -48,9 +50,17 @@ for(i in 1:3){ # Label each panel
   }
 }
 
+# Inverse the color of img1_ica
+img1_ica.iv=1-img1_ica # Inverse grayscale values
+plot(combine(img1_ica, img1_ica.iv, test2), all=T)
+text(x=20, y=20, label="ICA 1", cex=1, adj = c(0,1), col = "red")
+text(x=620, y=20, label="ICA 1 Inverse", cex=1, adj = c(0,1), col = "red")
+text(x=20, y=620, label="Source 1", cex=1, adj = c(0,1), col = "red")
+# Closer to the original 
+
 ### A nonlinear transformation test.
 w = makeBrush(size = 21, shape = 'gaussian', sigma = 5) # Create brush
-t2.f=filter2(test2, w); display(t2.f) # Blur image 2 to create non-linear transformation
+t2.f=filter2(test2, w); display(t2.f) # Blur image 2 to create a non-linear transformation
 
 img2.nl=0.2*test1+0.8*t2.f
 display(img1); display(img2.nl)
@@ -59,6 +69,7 @@ img1_vec=as.vector(img1) # Convert to vector, default is by row
 img2_vec.nl=as.vector(img2.nl)
 
 S2 <- cbind(img1_vec, img2_vec.nl)
+set.seed(2017)
 ICA2=fastICA(S2, 2,  alg.typ = "parallel", fun = "logcosh", alpha = 1,
           method = "C", row.norm = FALSE, maxit = 200,
           tol = 0.0001, verbose = TRUE)
@@ -92,6 +103,7 @@ img3_vec=as.vector(img3)
 S3 <- cbind(img1_vec, img2_vec, img3_vec)
 
 # FastICA
+set.seed(2017)
 ICA3=fastICA(S3, 3,  alg.typ = "parallel", fun = "logcosh", alpha = 1,
              method = "C", row.norm = FALSE, maxit = 200,
              tol = 0.0001, verbose = TRUE)
@@ -101,7 +113,7 @@ img3_ica3=as.Image(matrix(ICA3$S[,3], nrow=600))
 
 ica3_img=combine(img1, img2, img3,
                 img1_ica3, img2_ica3, img3_ica3,
-                test1, test3, test4)
+                test3, test1, test4)
 plot(ica3_img, all=TRUE)
 #names=c("Mixture", "ICA", "Source")
 for(i in 1:3){
