@@ -67,7 +67,7 @@ img2_ica2=as.Image(matrix(ICA2$S[,2], nrow=600))
 ica1_img=combine(img1, img1_ica2, test2,
                  img2.nl,img2_ica2, test1) # Combine images
 plot(ica1_img, all=TRUE) # Plot all
-names=c("Mixture", "ICA", "Source")
+#names=c("Mixture", "ICA", "Source")
 for(i in 1:3){ # Label each panel
   name=names[i]
   for(j in 1:2){
@@ -77,7 +77,6 @@ for(i in 1:3){ # Label each panel
 }
 
 ### A linear transformation of test1, 3 and 4
-A=matrix(round(runif(9),digits = 1), nrow=3)
 img1=0.6*test1+0.2*test3+0.2*test4
 img2=0.2*test1+0.7*test3+0.1*test4
 img3=0.1*test1+0.2*test3+0.7*test4
@@ -103,7 +102,7 @@ ica3_img=combine(img1, img2, img3,
                 img1_ica3, img2_ica3, img3_ica3,
                 test1, test3, test4)
 plot(ica3_img, all=TRUE)
-names=c("Mixture", "ICA", "Source")
+#names=c("Mixture", "ICA", "Source")
 for(i in 1:3){
   name=names[i]
   for(j in 1:3){
