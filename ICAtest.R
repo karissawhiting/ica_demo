@@ -50,6 +50,9 @@ Xt
 plot(St, main = "Sources")
 plot(Xt, main = "Mixtures")
 
+
+plot(S3/2)
+
 setWavPlayer("/Applications/'QuickTime Player.app'/Contents/MacOS/'i'")
 setWavPlayer("afplay")
 
