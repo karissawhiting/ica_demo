@@ -8,7 +8,7 @@ install.packages("fastICA")
 library(fastICA)
 
 rm(list=ls())
-#setwd("~/Documents/ica_demo/")
+setwd("~/Documents/ica_demo/")
 
 ### Import 4 images
 test1=readImage("./Test1_g.jpg") 
@@ -32,9 +32,15 @@ S1 <- cbind(img1_vec, img2_vec)
 
 # FastICA
 set.seed(1)
-ICA1=fastICA(S1, 2,  alg.typ = "parallel", fun = "logcosh", alpha = 1,
-                 method = "C", row.norm = FALSE, maxit = 200,
-                 tol = 0.0001, verbose = TRUE)
+ICA1=fastICA(S1, n.comp = 2, # Number of components to be extracted
+             alg.typ = "parallel", # Here, alg.typ = "parallel" indicates that the components are extracted simultaneously
+             fun = "logcosh", # the functional form (log cosh here) of the G function used in the approximation to neg-entropy.
+             alpha = 1, # the value associated with logcosh function
+             method = "C", # use C code to perform most of the computations.
+             row.norm = FALSE, 
+             maxit = 200, # Max # of iterations
+             tol = 0.0001, # covergence tolerance
+             verbose = TRUE)
 img1_ica=as.Image(matrix(ICA1$S[,1], nrow=600)) # Reconstruct image
 img2_ica=as.Image(matrix(ICA1$S[,2], nrow=600))
 
@@ -63,6 +69,8 @@ w = makeBrush(size = 21, shape = 'gaussian', sigma = 5) # Create brush
 t2.f=filter2(test2, w); display(t2.f) # Blur image 2 to create a non-linear transformation
 
 img2.nl=0.2*test1+0.8*t2.f
+#img2.nl=0.2*test1+0.8*test2^2
+#plot(combine(test2, test2^2, test2^3), all=T)
 display(img1); display(img2.nl)
 
 img1_vec=as.vector(img1) # Convert to vector, default is by row
